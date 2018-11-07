@@ -16,10 +16,13 @@
     });
 
     $(document).ready(function () {
-        var ajaxMoreLoader = new Shopsys.productList.AjaxMoreLoader();
-        ajaxMoreLoader.init();
-        var ajaxFilter = new Shopsys.productList.AjaxFilter(ajaxMoreLoader);
-        ajaxFilter.init();
+        $('.js-list-with-paginator').each(function () {
+            var ajaxMoreLoader = new Shopsys.AjaxMoreLoader($(this));
+            ajaxMoreLoader.init();
+
+            var ajaxFilter = new Shopsys.productList.AjaxFilter(ajaxMoreLoader);
+            ajaxFilter.init();
+        });
     });
 
 })(jQuery);

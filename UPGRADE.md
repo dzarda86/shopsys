@@ -67,6 +67,8 @@ There is a list of all the repositories maintained by monorepo, changes in log b
     - if you're using Docker-sync, add the directories mentioned in the PR into `sync_exclude` section of your `docker-sync.yml` to make the synchronization faster as well
 - *(optional)* [#557 - php-fpm image has standard workdir (/var/www/html) in ci stage](https://github.com/shopsys/shopsys/pull/557)
     - update your `docker/php-fpm/Dockerfile` and `kubernetes/deployments/webserver-php-fpm.yml` according to [the pull request](https://github.com/shopsys/shopsys/pull/557) to simplify the CI build
+- [#579 - ajaxMoreLoader is generalized](https://github.com/shopsys/shopsys/pull/579)
+    - new macro `loadMoreButton` is integrated into `@ShopsysShop/Front/Inline/Paginator/paginator.html.twig`, update files based on commit [`ajaxMoreLoader is updated and generalized`](https://github.com/shopsys/shopsys/pull/579/commits/a2a0342be041b3fab4acd244bb4ce988f7c0ff6d)
 
 ### [shopsys/shopsys]
 - *(MacOS only)* [#503 updated docker-sync configuration](https://github.com/shopsys/shopsys/pull/503/)
