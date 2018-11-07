@@ -5,6 +5,7 @@ namespace Shopsys\FrameworkBundle\Model\Product\Brand;
 use Doctrine\ORM\EntityManagerInterface;
 use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Shopsys\FrameworkBundle\Component\Image\ImageFacade;
+use Shopsys\FrameworkBundle\Component\Paginator\PaginationResult;
 use Shopsys\FrameworkBundle\Component\Router\FriendlyUrl\FriendlyUrlFacade;
 
 class BrandFacade
@@ -140,5 +141,28 @@ class BrandFacade
     public function getAll()
     {
         return $this->brandRepository->getAll();
+    }
+
+    /**
+     * @param int $page
+     * @param int $limit
+     * @return \Shopsys\FrameworkBundle\Component\Paginator\PaginationResult
+     */
+    public function getPaginatedResult(
+        $page,
+        $limit
+    ) {
+        $paginationResult = $this->brandRepository->getPaginationResult(
+            $page,
+            $limit
+        );
+        $brands = $paginationResult->getResults();
+
+        return new PaginationResult(
+            $paginationResult->getPage(),
+            $paginationResult->getPageSize(),
+            $paginationResult->getTotalCount(),
+            $brands
+        );
     }
 }

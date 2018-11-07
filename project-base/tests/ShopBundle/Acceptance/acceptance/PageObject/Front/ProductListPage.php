@@ -46,7 +46,7 @@ class ProductListPage extends AbstractPage
     public function assertProductsTotalCount($expectedCount)
     {
         $totalCountElement = $this->getProductListCompomentContext()
-            ->findElement(WebDriverBy::cssSelector('.js-paging-total-count'));
+            ->findElement(WebDriverBy::cssSelector('.js-product-list-with-filter .js-paging-total-count'));
         $actualCount = (int)trim($totalCountElement->getText());
 
         $message = 'Product list expects ' . $expectedCount . ' products but contains ' . $actualCount . '.';

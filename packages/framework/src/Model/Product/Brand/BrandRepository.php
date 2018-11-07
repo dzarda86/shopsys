@@ -3,6 +3,7 @@
 namespace Shopsys\FrameworkBundle\Model\Product\Brand;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Shopsys\FrameworkBundle\Component\Paginator\QueryPaginator;
 
 class BrandRepository
 {
@@ -49,5 +50,22 @@ class BrandRepository
     public function getAll()
     {
         return $this->getBrandRepository()->findBy([], ['name' => 'asc']);
+    }
+
+    /**
+     * @param int $page
+     * @param int $limit
+     * @return \Shopsys\FrameworkBundle\Component\Paginator\PaginationResult
+     */
+    public function getPaginationResult(
+        $page,
+        $limit
+    ) {
+        $queryBuilder = $this->getBrandRepository()->createQueryBuilder('b');
+        $queryBuilder->orderBy('b.name', 'asc');
+
+        $queryPaginator = new QueryPaginator($queryBuilder);
+
+        return $queryPaginator->getResult($page, $limit);
     }
 }
