@@ -26,7 +26,6 @@
             page = $loadMoreButton.data('page');
             pageQueryParameter = $loadMoreButton.data('page-query-parameter');
             paginationToItem = $loadMoreButton.data('pagination-to-item');
-            type = $loadMoreButton.data('type');
             url = $loadMoreButton.data('url') || document.location;
 
             updateLoadMoreButton();
