@@ -1,4 +1,4 @@
-{% macro paginatorNavigation(paginationResult, entityName, pageQueryParameter='page') %}
+{% macro paginatorNavigation(paginationResult, entityName, pageQueryParameter = 'page') %}
     <div class="in-paging">
         {% set route = getRoute() %}
         {% set routeParams = getAllRequestParams() %}
