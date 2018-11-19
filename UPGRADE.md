@@ -58,7 +58,7 @@ There is a list of all the repositories maintained by monorepo, changes in log b
     - the last parameter is no longer `bool`, but `integer` - domain ID
 
 ### [shopsys/project-base]
-- [#608 ProductOnCurrentDomainFacade: rename getPaginatedProductDetails* methods](https://github.com/shopsys/shopsys/pull/608)
+- [#610 ProductOnCurrentDomainFacade: rename getPaginatedProductDetails* methods](https://github.com/shopsys/shopsys/pull/610)
     - change usages of the renamed methods of `ProductOnCurrentDomainFacade`
         - from `getPaginatedProductDetailsInCategory` to `getPaginatedProductsInCategory`
         - from `getPaginatedProductDetailsForBrand` to `getPaginatedProductsForBrand`
