@@ -35,6 +35,7 @@
 * [Adding a New Administration Page](./cookbook/adding-a-new-administration-page.md)
 * [Adding a New Advert Position](./cookbook/adding-a-new-advert-position.md)
 * [Modifying a Template in Administration](./cookbook/modifying-a-template-in-administration.md)
+* [Adding Ajax Load More Button into Pagination](./cookbook/adding-ajax-load-more-button-into-pagination.md)
 
 ## Microservices
 One of the explored ideas of Shopsys Framework is the idea of a product, that some of its parts are designed as the microservices.
