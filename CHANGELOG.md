@@ -28,21 +28,6 @@ The changelog is generated during the release process using [ChangelogLinker](ht
 
 <!-- changelog-linker -->
 
-## [v7.0.0-beta2]
-
-#### Added
-
-- [#499] Docker-sync for Windows development is added
-## [v7.0.0-beta2]^2
-
-### Unknown Package
-
-#### Unknown Category
-
-- [#534] Release v7.0.0-beta2
-
-
-
 ## [7.0.0-beta2] - 2018-10-19
 
 ### [shopsys/framework]
