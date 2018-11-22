@@ -24,7 +24,7 @@
             totalCount = $loadMoreButton.data('total-count');
             pageSize = $loadMoreButton.data('page-size');
             page = $loadMoreButton.data('page');
-            pageQueryParameter = $loadMoreButton.data('page-query-parameter');
+            pageQueryParameter = $loadMoreButton.data('page-query-parameter') || 'page';
             paginationToItem = $loadMoreButton.data('pagination-to-item');
             url = $loadMoreButton.data('url') || document.location;
 
@@ -49,7 +49,7 @@
                 data: requestData,
                 success: function (data) {
                     var $response = $($.parseHTML(data));
-                    var $nextItems = $response.find('.js-list > li');
+                    var $nextItems = $response.find('.js-list > *');
                     $currentList.append($nextItems);
                     page++;
                     paginationToItem += $nextItems.length;

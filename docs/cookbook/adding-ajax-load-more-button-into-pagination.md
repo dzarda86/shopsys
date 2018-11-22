@@ -43,13 +43,11 @@ public function getPaginatedResult(
         $limit
     );
     
-    $brands = $paginationResult->getResults();
-    
     return new PaginationResult(
         $paginationResult->getPage(),
         $paginationResult->getPageSize(),
         $paginationResult->getTotalCount(),
-        $brands
+        $paginationResult->getResults()
     );
 }
 ```
@@ -60,10 +58,6 @@ We will use `paginator.loadMoreButton(paginationResult, url('front_brand_list'),
 ```twig
 {# ShopBundle/Resources/views/Front/Content/Brand/list.html.twig #}
 {% extends '@ShopsysShop/Front/Layout/layoutWithPanel.html.twig' %}
-{% import '@ShopsysShop/Front/Inline/Paginator/paginator.html.twig' as paginator %}
-
-{% set entityName = 'brands'|trans %}
-{% set pageQueryParameter = 'brandPage' %}
 
 {% block title %}
     {{ 'Brand overview'|trans }}
@@ -72,23 +66,7 @@ We will use `paginator.loadMoreButton(paginationResult, url('front_brand_list'),
 {% block main_content %}
     <div>
         <h1>{{ 'Brand overview'|trans }}</h1>
-        <div class="js-list-with-paginator">
-            {{ paginator.paginatorNavigation(paginationResult, entityName, pageQueryParameter) }}
-            <ul class='list-images js-list'>
-                {% for brand in paginationResult.results %}
-                    <li class="list-images__item">
-                        <a href="{{ url('front_brand_detail', { id: brand.id }) }}" class="list-images__item__block list-images__item__block--with-label">
-                            {{ image(brand, { alt: brand.name }) }}
-                            <span>{{ brand.name }}</span>
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-            <div class="text-center margin-bottom-20">
-                {{ paginator.loadMoreButton(paginationResult, url('front_brand_list'), pageQueryParameter) }}
-            </div>
-            {{ paginator.paginatorNavigation(paginationResult, entityName, pageQueryParameter) }}
-        </div>
+        {% include '@ShopsysShop/Front/Content/Brand/ajaxList.html.twig' with {paginationResult: paginationResult} %}
     </div>
 {% endblock %}
 ```
