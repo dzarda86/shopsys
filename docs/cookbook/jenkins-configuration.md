@@ -184,22 +184,14 @@ NETSTAT_LIST=$(netstat -at --numeric-ports);
 
 # Use ports 80xx for "webserver", 44xx for "selenium-server" and 11xx for "adminer", 16xx for redis and 357xx for livereload javascript that is used by nginx
 PORT_BASE_WEB=8000;
-PORT_BASE_SELENIUM=4400;
-PORT_BASE_ADMINER=1100;
-PORT_BASE_REDIS_ADMIN=1600;
-PORT_BASE_LIVERELOAD_JAVASCRIPT=35729;
 MAX_PORT_INCREMENT=99;
 
 # Increment the xx part of the ports and check their availability
 for PORT_INCREMENT in $(seq 0 $MAX_PORT_INCREMENT); do
 	PORT_WEB=$((PORT_BASE_WEB+PORT_INCREMENT))
-	PORT_SELENIUM=$((PORT_BASE_SELENIUM+PORT_INCREMENT));
-	PORT_ADMINER=$((PORT_BASE_ADMINER+PORT_INCREMENT));
-	PORT_REDIS_ADMIN=$((PORT_BASE_REDIS_ADMIN+PORT_INCREMENT));
-	PORT_LIVERELOAD_JAVASCRIPT=$((PORT_BASE_LIVERELOAD_JAVASCRIPT+PORT_INCREMENT));
 
 	# If netstat output doesn't contain any of checked ports we can use them
-	if [ -z $(grep ":\($PORT_WEB\|$PORT_SELENIUM\|$PORT_ADMINER\|$PORT_REDIS_ADMIN\|$PORT_LIVERELOAD_JAVASCRIPT\)\ " <<< "$NETSTAT_LIST") ]; then
+	if [ -z $(grep ":\($PORT_WEB\)\ " <<< "$NETSTAT_LIST") ]; then
 		break;
 	fi
 	
@@ -218,10 +210,6 @@ First, set it into docker compose:
 # Rewrite all publicly exposed ports to the available ones we found earlier
 # e.g. '- "8000:8080"' => '- "8003:8080"'
 sed -i "s/\- \"$PORT_BASE_WEB\:*/\- \"$PORT_WEB:/" $WORKSPACE/docker-compose.yml
-sed -i "s/\- \"$PORT_BASE_SELENIUM\:*/\- \"$PORT_SELENIUM:/" $WORKSPACE/docker-compose.yml
-sed -i "s/\- \"$PORT_BASE_ADMINER\:*/\- \"$PORT_ADMINER:/" $WORKSPACE/docker-compose.yml
-sed -i "s/\- \"$PORT_BASE_REDIS_ADMIN\:*/\- \"$PORT_REDIS_ADMIN:/" $WORKSPACE/docker-compose.yml
-sed -i "s/\- \"$PORT_BASE_LIVERELOAD_JAVASCRIPT\:*/\- \"$PORT_LIVERELOAD_JAVASCRIPT:/" $WORKSPACE/docker-compose.yml
 ```
 
 Now we need to setup proxy for our job build.
