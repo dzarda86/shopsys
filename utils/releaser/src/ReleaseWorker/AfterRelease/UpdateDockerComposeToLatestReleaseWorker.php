@@ -8,17 +8,12 @@ use Nette\Utils\FileSystem;
 use PharIo\Version\Version;
 use Shopsys\Releaser\FileManipulator\DockerComposeFileManipulator;
 use Shopsys\Releaser\FilesProvider\DockerComposeFilesProvider;
+use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\MonorepoBuilder\Release\Message;
 
 final class UpdateDockerComposeToLatestReleaseWorker extends AbstractShopsysReleaseWorker
 {
-    /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $symfonyStyle;
-
     /**
      * @var \Shopsys\Releaser\FileManipulator\DockerComposeFileManipulator
      */
@@ -30,16 +25,13 @@ final class UpdateDockerComposeToLatestReleaseWorker extends AbstractShopsysRele
     private $dockerComposeFilesProvider;
 
     /**
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
      * @param \Shopsys\Releaser\FileManipulator\DockerComposeFileManipulator $dockerComposeFileManipulator
      * @param \Shopsys\Releaser\FilesProvider\DockerComposeFilesProvider $dockerComposeFilesProvider
      */
     public function __construct(
-        SymfonyStyle $symfonyStyle,
         DockerComposeFileManipulator $dockerComposeFileManipulator,
         DockerComposeFilesProvider $dockerComposeFilesProvider
     ) {
-        $this->symfonyStyle = $symfonyStyle;
         $this->dockerComposeFileManipulator = $dockerComposeFileManipulator;
         $this->dockerComposeFilesProvider = $dockerComposeFilesProvider;
     }

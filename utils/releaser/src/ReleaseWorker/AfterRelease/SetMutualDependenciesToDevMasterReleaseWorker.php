@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Shopsys\Releaser\ReleaseWorker\AfterRelease;
 
 use PharIo\Version\Version;
+use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider;
 use Symplify\MonorepoBuilder\InterdependencyUpdater;
 use Symplify\MonorepoBuilder\Package\PackageNamesProvider;
@@ -14,11 +14,6 @@ use Symplify\MonorepoBuilder\Release\Message;
 
 final class SetMutualDependenciesToDevMasterReleaseWorker extends AbstractShopsysReleaseWorker
 {
-    /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $symfonyStyle;
-
     /**
      * @var \Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider
      */
@@ -40,14 +35,12 @@ final class SetMutualDependenciesToDevMasterReleaseWorker extends AbstractShopsy
     private const DEV_MASTER = 'dev-master';
 
     /**
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
      * @param \Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider $composerJsonProvider
      * @param \Symplify\MonorepoBuilder\InterdependencyUpdater $interdependencyUpdater
      * @param \Symplify\MonorepoBuilder\Package\PackageNamesProvider $packageNamesProvider
      */
-    public function __construct(SymfonyStyle $symfonyStyle, ComposerJsonProvider $composerJsonProvider, InterdependencyUpdater $interdependencyUpdater, PackageNamesProvider $packageNamesProvider)
+    public function __construct(ComposerJsonProvider $composerJsonProvider, InterdependencyUpdater $interdependencyUpdater, PackageNamesProvider $packageNamesProvider)
     {
-        $this->symfonyStyle = $symfonyStyle;
         $this->composerJsonProvider = $composerJsonProvider;
         $this->interdependencyUpdater = $interdependencyUpdater;
         $this->packageNamesProvider = $packageNamesProvider;
