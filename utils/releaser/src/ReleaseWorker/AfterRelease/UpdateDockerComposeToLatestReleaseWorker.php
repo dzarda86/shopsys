@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shopsys\Releaser\ReleaseWorker\AfterReleaser;
+namespace Shopsys\Releaser\ReleaseWorker\AfterRelease;
 
 use Nette\Utils\FileSystem;
 use PharIo\Version\Version;
@@ -64,7 +64,7 @@ final class UpdateDockerComposeToLatestReleaseWorker implements ReleaseWorkerInt
      */
     public function getPriority(): int
     {
-        return 640;
+        return 280;
     }
 
     /**

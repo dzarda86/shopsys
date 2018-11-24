@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shopsys\Releaser\ReleaseWorker;
+namespace Shopsys\Releaser\ReleaseWorker\ReleaseCandidate;
 
 use Nette\Utils\Strings;
 use PharIo\Version\Version;
@@ -11,6 +11,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider;
 use Symplify\MonorepoBuilder\FileSystem\JsonFileManager;
 use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
+use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareReleaseWorkerInterface;
 use Symplify\MonorepoBuilder\Release\Message;
 
 final class ValidateRequireFormatInComposerJsonReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface

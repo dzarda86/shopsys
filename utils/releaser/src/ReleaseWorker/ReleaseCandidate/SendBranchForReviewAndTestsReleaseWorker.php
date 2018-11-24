@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Shopsys\Releaser\ReleaseWorker\ReleaseCandidate;
 
-use Nette\Utils\FileSystem;
 use PharIo\Version\Version;
-use Shopsys\Releaser\FileManipulator\UpgradeFileManipulator;
 use Shopsys\Releaser\Stage;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
 use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareReleaseWorkerInterface;
-use Symplify\MonorepoBuilder\Release\Message;
 
-final class UpdateUpgradeReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface
+final class SendBranchForReviewAndTestsReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface
 {
     /**
      * @var \Symfony\Component\Console\Style\SymfonyStyle
@@ -21,18 +18,11 @@ final class UpdateUpgradeReleaseWorker implements ReleaseWorkerInterface, StageA
     private $symfonyStyle;
 
     /**
-     * @var \Shopsys\Releaser\FileManipulator\UpgradeFileManipulator
-     */
-    private $upgradeFileManipulator;
-
-    /**
      * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
-     * @param \Shopsys\Releaser\FileManipulator\UpgradeFileManipulator $upgradeFileManipulator
      */
-    public function __construct(SymfonyStyle $symfonyStyle, UpgradeFileManipulator $upgradeFileManipulator)
+    public function __construct(SymfonyStyle $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
-        $this->upgradeFileManipulator = $upgradeFileManipulator;
     }
 
     /**
@@ -41,7 +31,7 @@ final class UpdateUpgradeReleaseWorker implements ReleaseWorkerInterface, StageA
      */
     public function getDescription(Version $version): string
     {
-        return sprintf('Update UPGRADE.md from/to headline with "%s" version', $version->getVersionString());
+        return '[Manual] Send the branch for review and tests';
     }
 
     /**
@@ -50,7 +40,7 @@ final class UpdateUpgradeReleaseWorker implements ReleaseWorkerInterface, StageA
      */
     public function getPriority(): int
     {
-        return 800;
+        return 740;
     }
 
     /**
@@ -58,18 +48,7 @@ final class UpdateUpgradeReleaseWorker implements ReleaseWorkerInterface, StageA
      */
     public function work(Version $version): void
     {
-        return;
-
-        // load
-        $changelogFilePath = getcwd() . '/UPGRADE.md';
-
-        // change
-        $newChangelogContent = $this->upgradeFileManipulator->processFileToString($changelogFilePath, $version);
-
-        // save
-        FileSystem::write($changelogFilePath, $newChangelogContent);
-
-        $this->symfonyStyle->success(Message::SUCCESS);
+        // @todo
     }
 
     /**

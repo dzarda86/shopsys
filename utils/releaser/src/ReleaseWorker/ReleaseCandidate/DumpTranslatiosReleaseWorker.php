@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Shopsys\Releaser\ReleaseWorker;
+namespace Shopsys\Releaser\ReleaseWorker\ReleaseCandidate;
 
 use Nette\Utils\Strings;
 use PharIo\Version\Version;
 use Shopsys\Releaser\Stage;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
+use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareReleaseWorkerInterface;
 use Symplify\MonorepoBuilder\Release\Process\ProcessRunner;
 
 final class DumpTranslatiosReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface

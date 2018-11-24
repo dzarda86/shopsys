@@ -2,23 +2,36 @@
 
 declare(strict_types=1);
 
-namespace Shopsys\Releaser\ReleaseWorker\ReleaseCandidate;
+namespace Shopsys\Releaser\ReleaseWorker\AfterRelease;
 
-use Nette\Utils\Strings;
 use PharIo\Version\Version;
 use Shopsys\Releaser\Stage;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
 use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareReleaseWorkerInterface;
 
-final class CreateBranchReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface
+final class CheckNewVersionReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface
 {
+    /**
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     */
+    private $symfonyStyle;
+
+    /**
+     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
+     */
+    public function __construct(SymfonyStyle $symfonyStyle)
+    {
+        $this->symfonyStyle = $symfonyStyle;
+    }
+
     /**
      * @param \PharIo\Version\Version $version
      * @return string
      */
     public function getDescription(Version $version): string
     {
-        return sprintf('[Manual] Create branch "rc-%s"', Strings::webalize($version->getVersionString()));
+        return 'Check new version';
     }
 
     /**
@@ -27,7 +40,7 @@ final class CreateBranchReleaseWorker implements ReleaseWorkerInterface, StageAw
      */
     public function getPriority(): int
     {
-        return 980;
+        return 300;
     }
 
     /**
@@ -42,6 +55,6 @@ final class CreateBranchReleaseWorker implements ReleaseWorkerInterface, StageAw
      */
     public function getStage(): string
     {
-        return Stage::RELEASE_CANDIDATE;
+        return Stage::AFTER_RELEASE;
     }
 }

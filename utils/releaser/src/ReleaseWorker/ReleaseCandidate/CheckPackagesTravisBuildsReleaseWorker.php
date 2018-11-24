@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shopsys\Releaser\ReleaseWorker;
+namespace Shopsys\Releaser\ReleaseWorker\ReleaseCandidate;
 
 use PharIo\Version\Version;
 use Shopsys\Releaser\Stage;

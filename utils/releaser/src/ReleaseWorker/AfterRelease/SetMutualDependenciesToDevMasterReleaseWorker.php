@@ -70,7 +70,7 @@ final class SetMutualDependenciesToDevMasterReleaseWorker implements ReleaseWork
      */
     public function getPriority(): int
     {
-        return 560;
+        return 260;
     }
 
     /**
