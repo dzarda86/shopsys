@@ -8,19 +8,13 @@ use Nette\Utils\FileSystem;
 use PharIo\Version\Version;
 use Shopsys\Releaser\FileManipulator\DockerComposeFileManipulator;
 use Shopsys\Releaser\FilesProvider\DockerComposeFilesProvider;
+use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareReleaseWorkerInterface;
 use Symplify\MonorepoBuilder\Release\Message;
 
-final class UpdateDockerComposeToVersionReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface
+final class UpdateDockerComposeToVersionReleaseWorker extends AbstractShopsysReleaseWorker
 {
-    /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $symfonyStyle;
-
     /**
      * @var \Shopsys\Releaser\FileManipulator\DockerComposeFileManipulator
      */

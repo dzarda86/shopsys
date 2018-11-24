@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace Shopsys\Releaser\ReleaseWorker\ReleaseCandidate;
 
 use PharIo\Version\Version;
+use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
 use Shopsys\Releaser\Travis\TravisStatusReporter;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareReleaseWorkerInterface;
 
 /**
  * @see https://stackoverflow.com/questions/34277366/how-to-list-all-builds-of-a-given-project-through-travis-api
  * @see http://docs.guzzlephp.org/en/stable/quickstart.html#concurrent-requests
  */
-final class CheckPackagesTravisBuildsReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface
+final class CheckPackagesTravisBuildsReleaseWorker extends AbstractShopsysReleaseWorker
 {
     /**
      * @var string
@@ -23,22 +21,15 @@ final class CheckPackagesTravisBuildsReleaseWorker implements ReleaseWorkerInter
     private const STATUS_SUCCESS = 'Success';
 
     /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $symfonyStyle;
-
-    /**
      * @var \Shopsys\Releaser\Travis\TravisStatusReporter
      */
     private $travisStatusReporter;
 
     /**
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
      * @param \Shopsys\Releaser\Travis\TravisStatusReporter $travisStatusReporter
      */
-    public function __construct(SymfonyStyle $symfonyStyle, TravisStatusReporter $travisStatusReporter)
+    public function __construct(TravisStatusReporter $travisStatusReporter)
     {
-        $this->symfonyStyle = $symfonyStyle;
         $this->travisStatusReporter = $travisStatusReporter;
     }
 

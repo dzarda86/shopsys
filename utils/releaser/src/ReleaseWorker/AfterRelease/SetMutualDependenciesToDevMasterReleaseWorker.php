@@ -10,11 +10,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider;
 use Symplify\MonorepoBuilder\InterdependencyUpdater;
 use Symplify\MonorepoBuilder\Package\PackageNamesProvider;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareReleaseWorkerInterface;
 use Symplify\MonorepoBuilder\Release\Message;
 
-final class SetMutualDependenciesToDevMasterReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface
+final class SetMutualDependenciesToDevMasterReleaseWorker extends AbstractShopsysReleaseWorker
 {
     /**
      * @var \Symfony\Component\Console\Style\SymfonyStyle

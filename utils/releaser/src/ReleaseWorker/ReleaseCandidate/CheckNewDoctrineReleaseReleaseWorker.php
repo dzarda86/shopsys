@@ -7,19 +7,13 @@ namespace Shopsys\Releaser\ReleaseWorker\ReleaseCandidate;
 use Nette\Utils\Strings;
 use PharIo\Version\Version;
 use Shopsys\Releaser\Guzzle\ApiCaller;
+use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareReleaseWorkerInterface;
 use Symplify\MonorepoBuilder\Release\Message;
 
-final class CheckNewDoctrineReleaseReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface
+final class CheckNewDoctrineReleaseReleaseWorker extends AbstractShopsysReleaseWorker
 {
-    /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $symfonyStyle;
-
     /**
      * @var \Shopsys\Releaser\Guzzle\ApiCaller
      */
@@ -41,7 +35,6 @@ final class CheckNewDoctrineReleaseReleaseWorker implements ReleaseWorkerInterfa
      */
     public function __construct(SymfonyStyle $symfonyStyle, ApiCaller $apiCaller)
     {
-        $this->symfonyStyle = $symfonyStyle;
         $this->apiCaller = $apiCaller;
     }
 

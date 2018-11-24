@@ -6,15 +6,13 @@ namespace Shopsys\Releaser\ReleaseWorker\ReleaseCandidate;
 
 use PharIo\Version\Version;
 use Shopsys\Releaser\IntervalEvaluator;
+use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider;
 use Symplify\MonorepoBuilder\FileSystem\JsonFileManager;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareReleaseWorkerInterface;
 use Symplify\MonorepoBuilder\Release\Message;
 
-final class ValidateConflictsInComposerJsonReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface
+final class ValidateConflictsInComposerJsonReleaseWorker extends AbstractShopsysReleaseWorker
 {
     /**
      * @var \Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider
@@ -25,11 +23,6 @@ final class ValidateConflictsInComposerJsonReleaseWorker implements ReleaseWorke
      * @var \Symplify\MonorepoBuilder\FileSystem\JsonFileManager
      */
     private $jsonFileManager;
-
-    /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $symfonyStyle;
 
     /**
      * @var bool
@@ -49,18 +42,15 @@ final class ValidateConflictsInComposerJsonReleaseWorker implements ReleaseWorke
     /**
      * @param \Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider $composerJsonProvider
      * @param \Symplify\MonorepoBuilder\FileSystem\JsonFileManager $jsonFileManager
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
      * @param \Shopsys\Releaser\IntervalEvaluator $intervalEvaluator
      */
     public function __construct(
         ComposerJsonProvider $composerJsonProvider,
         JsonFileManager $jsonFileManager,
-        SymfonyStyle $symfonyStyle,
         IntervalEvaluator $intervalEvaluator
     ) {
         $this->composerJsonProvider = $composerJsonProvider;
         $this->jsonFileManager = $jsonFileManager;
-        $this->symfonyStyle = $symfonyStyle;
         $this->intervalEvaluator = $intervalEvaluator;
     }
 

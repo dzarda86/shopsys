@@ -6,16 +6,14 @@ namespace Shopsys\Releaser\ReleaseWorker\ReleaseCandidate;
 
 use Nette\Utils\Strings;
 use PharIo\Version\Version;
+use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider;
 use Symplify\MonorepoBuilder\FileSystem\JsonFileManager;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareReleaseWorkerInterface;
 use Symplify\MonorepoBuilder\Release\Message;
 
-final class ValidateRequireFormatInComposerJsonReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface
+final class ValidateRequireFormatInComposerJsonReleaseWorker extends AbstractShopsysReleaseWorker
 {
     /**
      * @var \Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider
@@ -28,11 +26,6 @@ final class ValidateRequireFormatInComposerJsonReleaseWorker implements ReleaseW
     private $jsonFileManager;
 
     /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $symfonyStyle;
-
-    /**
      * @var bool
      */
     private $isSuccessful = false;
@@ -40,16 +33,13 @@ final class ValidateRequireFormatInComposerJsonReleaseWorker implements ReleaseW
     /**
      * @param \Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider $composerJsonProvider
      * @param \Symplify\MonorepoBuilder\FileSystem\JsonFileManager $jsonFileManager
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
      */
     public function __construct(
         ComposerJsonProvider $composerJsonProvider,
-        JsonFileManager $jsonFileManager,
-        SymfonyStyle $symfonyStyle
+        JsonFileManager $jsonFileManager
     ) {
         $this->composerJsonProvider = $composerJsonProvider;
         $this->jsonFileManager = $jsonFileManager;
-        $this->symfonyStyle = $symfonyStyle;
     }
 
     /**
