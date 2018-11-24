@@ -6,6 +6,7 @@ namespace Shopsys\Releaser\ReleaseWorker\ReleaseCandidate;
 
 use Nette\Utils\Strings;
 use PharIo\Version\Version;
+use Shopsys\Releaser\Stage;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider;
@@ -37,26 +38,18 @@ final class ValidateRequireFormatInComposerJsonReleaseWorker implements ReleaseW
     private $isSuccessful = false;
 
     /**
-     * @var string[]
-     */
-    private $lockVersionAllowedPackages = [];
-
-    /**
      * @param \Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider $composerJsonProvider
      * @param \Symplify\MonorepoBuilder\FileSystem\JsonFileManager $jsonFileManager
      * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
-     * @param string[] $lockVersionAllowedPackages
      */
     public function __construct(
         ComposerJsonProvider $composerJsonProvider,
         JsonFileManager $jsonFileManager,
-        SymfonyStyle $symfonyStyle,
-        array $lockVersionAllowedPackages
+        SymfonyStyle $symfonyStyle
     ) {
         $this->composerJsonProvider = $composerJsonProvider;
         $this->jsonFileManager = $jsonFileManager;
         $this->symfonyStyle = $symfonyStyle;
-        $this->lockVersionAllowedPackages = $lockVersionAllowedPackages;
     }
 
     /**
@@ -138,10 +131,6 @@ final class ValidateRequireFormatInComposerJsonReleaseWorker implements ReleaseW
 
         // skip shopsys packages mutual dependencies
         if (Strings::startsWith($packageName, 'shopsys')) {
-            return true;
-        }
-
-        if (in_array($packageName, $this->lockVersionAllowedPackages, true)) {
             return true;
         }
 
