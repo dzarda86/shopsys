@@ -60,6 +60,8 @@ There is a list of all the repositories maintained by monorepo, changes in log b
           ⮕ `DeliveryAddressFactory::create(DeliveryAddressData $data)`
         - `CustomerService::editDeliveryAddress(User $user, DeliveryAddressData $deliveryAddressData, DeliveryAddress $deliveryAddress = null)`  
           ⮕ `User::editDeliveryAddress(DeliveryAddressData $deliveryAddressData, DeliveryAddressFactoryInterface $deliveryAddressFactory)`
+        - `CustomerService::changeEmail(User $user, $email, User $userByEmail = null)`  
+          ⮕ `User::changeEmail(string $email, self $userByEmail = null)`
     - following methods have been removed:
         - `User::setDeliveryAddress`, use `User::editDeliveryAddress` instead
     - change return type of `DeliveryAddressFactory::create()` to `?DeliveryAddress` as it now returns `null` when `addressFilled` is `false`
