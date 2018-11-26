@@ -241,12 +241,27 @@ class CategoryFormType extends AbstractType
 
         $this->pluginCrudExtensionFacade->extendForm($builderPluginGroup, 'category', 'pluginData');
 
+        $builderFixGroup = $builder->create('fixGroup', GroupType::class, [
+            'label' => 'test select box',
+        ]);
+
+        $builderFixGroup->add('fix', ChoiceType::class, [
+            'choices' => [
+                'a' => 1,
+                'b' => 2,
+                'c' => 3,
+            ],
+            'mapped' => false,
+            'attr' => ['class' => 'js-autocomplete-selectbox'],
+        ]);
+
         $builder
             ->add($builderSettingsGroup)
             ->add($builderSeoGroup)
             ->add($builderDescriptionGroup)
             ->add($builderImageGroup)
             ->add($builderPluginGroup)
+            ->add($builderFixGroup)
             ->add('save', SubmitType::class);
     }
 
