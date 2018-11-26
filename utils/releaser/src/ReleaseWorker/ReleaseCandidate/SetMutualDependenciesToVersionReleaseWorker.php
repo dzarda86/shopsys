@@ -11,7 +11,6 @@ use Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider;
 use Symplify\MonorepoBuilder\InterdependencyUpdater;
 use Symplify\MonorepoBuilder\Package\PackageNamesProvider;
 use Symplify\MonorepoBuilder\Release\Message;
-use Symplify\MonorepoBuilder\Utils\Utils;
 
 final class SetMutualDependenciesToVersionReleaseWorker extends AbstractShopsysReleaseWorker
 {
@@ -26,11 +25,6 @@ final class SetMutualDependenciesToVersionReleaseWorker extends AbstractShopsysR
     private $interdependencyUpdater;
 
     /**
-     * @var \Symplify\MonorepoBuilder\Utils\Utils
-     */
-    private $utils;
-
-    /**
      * @var \Symplify\MonorepoBuilder\Package\PackageNamesProvider
      */
     private $packageNamesProvider;
@@ -38,14 +32,12 @@ final class SetMutualDependenciesToVersionReleaseWorker extends AbstractShopsysR
     /**
      * @param \Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider $composerJsonProvider
      * @param \Symplify\MonorepoBuilder\InterdependencyUpdater $interdependencyUpdater
-     * @param \Symplify\MonorepoBuilder\Utils\Utils $utils
      * @param \Symplify\MonorepoBuilder\Package\PackageNamesProvider $packageNamesProvider
      */
-    public function __construct(ComposerJsonProvider $composerJsonProvider, InterdependencyUpdater $interdependencyUpdater, Utils $utils, PackageNamesProvider $packageNamesProvider)
+    public function __construct(ComposerJsonProvider $composerJsonProvider, InterdependencyUpdater $interdependencyUpdater, PackageNamesProvider $packageNamesProvider)
     {
         $this->composerJsonProvider = $composerJsonProvider;
         $this->interdependencyUpdater = $interdependencyUpdater;
-        $this->utils = $utils;
         $this->packageNamesProvider = $packageNamesProvider;
     }
 
@@ -55,9 +47,7 @@ final class SetMutualDependenciesToVersionReleaseWorker extends AbstractShopsysR
      */
     public function getDescription(Version $version): string
     {
-        $requiredVersionInString = $this->utils->getRequiredFormat($version);
-
-        return sprintf('Set mutual package dependencies to "%s" version', $requiredVersionInString);
+        return sprintf('Set mutual package dependencies to "%s" version', $version->getVersionString());
     }
 
     /**
@@ -74,12 +64,10 @@ final class SetMutualDependenciesToVersionReleaseWorker extends AbstractShopsysR
      */
     public function work(Version $version): void
     {
-        $requiredVersionInString = $this->utils->getRequiredFormat($version);
-
         $this->interdependencyUpdater->updateFileInfosWithPackagesAndVersion(
             $this->composerJsonProvider->getPackagesFileInfos(),
             $this->packageNamesProvider->provide(),
-            $requiredVersionInString
+            $version->getVersionString()
         );
 
         // @todo 'git commit -m "all shopsys packages have now dependency on X.X version of all other shopsys packages instead of dev-master" && git push
