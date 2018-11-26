@@ -58,10 +58,13 @@ final class CheckPackagesTravisBuildsReleaseWorker extends AbstractShopsysReleas
     {
         $statusForPackages = $this->travisStatusReporter->getStatusForPackagesByOrganization('shopsys');
 
+        $isPassing = true;
+
         foreach ($statusForPackages as $package => $status) {
             if ($status === self::STATUS_SUCCESS) {
                 $this->symfonyStyle->note(sprintf('"%s" package is passing', $package));
             } else {
+                $isPassing = false;
                 $this->symfonyStyle->error(sprintf(
                     '"%s" package is failing. Go check why:%s%s',
                     $package,
@@ -69,6 +72,10 @@ final class CheckPackagesTravisBuildsReleaseWorker extends AbstractShopsysReleas
                     sprintf('https://travis-ci.org/%s/branches', $package)
                 ));
             }
+        }
+
+        if ($isPassing === false) {
+            $this->symfonyStyle->confirm('Continue after packages are resolved');
         }
     }
 

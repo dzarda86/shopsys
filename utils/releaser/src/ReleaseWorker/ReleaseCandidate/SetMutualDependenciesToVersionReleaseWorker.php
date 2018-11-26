@@ -82,6 +82,8 @@ final class SetMutualDependenciesToVersionReleaseWorker extends AbstractShopsysR
             $requiredVersionInString
         );
 
+        // @todo 'git commit -m "all shopsys packages have now dependency on X.X version of all other shopsys packages instead of dev-master" && git push
+
         $this->symfonyStyle->success(Message::SUCCESS);
     }
 

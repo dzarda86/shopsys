@@ -16,6 +16,7 @@ final class CheckNewVersionReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function getDescription(Version $version): string
     {
+        // @todo what exactly?
         return 'Check new version';
     }
 
@@ -33,6 +34,8 @@ final class CheckNewVersionReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function work(Version $version): void
     {
+        // @todo what exactly?
+        $this->symfonyStyle->confirm('Confirm the new version is checked');
     }
 
     /**

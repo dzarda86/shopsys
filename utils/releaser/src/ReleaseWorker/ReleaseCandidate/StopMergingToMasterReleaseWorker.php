@@ -33,6 +33,7 @@ final class StopMergingToMasterReleaseWorker extends AbstractShopsysReleaseWorke
      */
     public function work(Version $version): void
     {
+        $this->symfonyStyle->confirm('Confirm the merging is stopped');
     }
 
     /**

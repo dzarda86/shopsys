@@ -33,7 +33,7 @@ final class MergeBranchToMasterReleaseWorker extends AbstractShopsysReleaseWorke
      */
     public function work(Version $version): void
     {
-        // @todo
+        $this->symfonyStyle->confirm('Confirm the release branch was merged to master');
     }
 
     /**

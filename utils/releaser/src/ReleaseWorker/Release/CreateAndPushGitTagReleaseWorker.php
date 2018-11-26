@@ -34,6 +34,10 @@ final class CreateAndPushGitTagReleaseWorker extends AbstractShopsysReleaseWorke
     public function work(Version $version): void
     {
         // @todo
+        // 'git checkout master'
+        // 'git pull origin master'
+        // 'git tag <tag>'
+        // 'git push --tags'
     }
 
     /**

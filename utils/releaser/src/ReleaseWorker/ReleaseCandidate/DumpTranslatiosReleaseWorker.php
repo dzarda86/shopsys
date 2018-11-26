@@ -54,7 +54,11 @@ final class DumpTranslatiosReleaseWorker extends AbstractShopsysReleaseWorker
         $this->processRunner->run('php phing dump-translations');
 
         if ($this->hasNewTranslations()) {
-            $this->symfonyStyle->note('[Manual] There are new translations. Check files, complete missing ones and then commit');
+            // @todo there are only deleted files?
+            // 'git commit -m "dump translations" && git push
+            // @todo there are also added lines?
+            $this->symfonyStyle->note('There are new translations');
+            $this->symfonyStyle->confirm('Confirm files are checked and missing translations completed');
         } else {
             $this->symfonyStyle->success('There are no new translations');
         }

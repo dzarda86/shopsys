@@ -53,6 +53,11 @@ final class CheckChangelogForTodaysDateReleaseWorker extends AbstractShopsysRele
             $this->symfonyStyle->success(Message::SUCCESS);
         } else {
             $this->symfonyStyle->error(sprintf('CHANGELOG.md has old date for "%s" version, update it to "%s".', $version->getVersionString(), $todayInString));
+
+            // @todo update automatically and commit
+            // 'git commit -m "CHANGELOG.md date update to today" && git push'
+
+            $this->symfonyStyle->confirm('Confirm the date was updated');
         }
     }
 

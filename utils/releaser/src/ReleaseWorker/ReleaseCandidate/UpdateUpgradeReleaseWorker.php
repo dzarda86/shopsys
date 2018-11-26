@@ -61,6 +61,8 @@ final class UpdateUpgradeReleaseWorker extends AbstractShopsysReleaseWorker
         FileSystem::write($upgradeFilePath, $newChangelogContent);
 
         $this->symfonyStyle->success(Message::SUCCESS);
+
+        $this->symfonyStyle->confirm('Confirm UPGRADE.md notes are ready');
     }
 
     /**

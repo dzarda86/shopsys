@@ -74,6 +74,8 @@ final class ValidateRequireFormatInComposerJsonReleaseWorker extends AbstractSho
 
         if ($this->isSuccessful) {
             $this->symfonyStyle->success(Message::SUCCESS);
+        } else {
+            $this->symfonyStyle->confirm('Confirm there are the same package versions in each package');
         }
     }
 

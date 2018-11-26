@@ -25,11 +25,6 @@ final class ValidateConflictsInComposerJsonReleaseWorker extends AbstractShopsys
     private $jsonFileManager;
 
     /**
-     * @var bool
-     */
-    private $isSuccessful = false;
-
-    /**
      * @var string
      */
     private const CONFLICT_SECTION = 'conflict';
@@ -77,6 +72,8 @@ final class ValidateConflictsInComposerJsonReleaseWorker extends AbstractShopsys
      */
     public function work(Version $version): void
     {
+        $isPassing = true;
+
         foreach ($this->composerJsonProvider->getRootAndPackageFileInfos() as $fileInfo) {
             $jsonContent = $this->jsonFileManager->loadFromFileInfo($fileInfo);
             if (!isset($jsonContent[self::CONFLICT_SECTION])) {
@@ -97,12 +94,14 @@ final class ValidateConflictsInComposerJsonReleaseWorker extends AbstractShopsys
                     PHP_EOL
                 ));
 
-                $this->isSuccessful = false;
+                $isPassing = false;
             }
         }
 
-        if ($this->isSuccessful) {
+        if ($isPassing) {
             $this->symfonyStyle->success(Message::SUCCESS);
+        } else {
+            $this->symfonyStyle->confirm('Confirm conflict versions are changed to specific versions or closed interfacel');
         }
     }
 

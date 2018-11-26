@@ -10,7 +10,6 @@ use Shopsys\Releaser\Stage;
 use Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider;
 use Symplify\MonorepoBuilder\InterdependencyUpdater;
 use Symplify\MonorepoBuilder\Package\PackageNamesProvider;
-use Symplify\MonorepoBuilder\Release\Message;
 
 final class SetMutualDependenciesToDevMasterReleaseWorker extends AbstractShopsysReleaseWorker
 {
@@ -75,8 +74,8 @@ final class SetMutualDependenciesToDevMasterReleaseWorker extends AbstractShopsy
             self::DEV_MASTER
         );
 
-        $this->symfonyStyle->success(Message::SUCCESS);
-        $this->symfonyStyle->note('[Manual] Commit changes of composer.json files');
+        // @todo 'git commit -m "all shopsys Docker images are now used in latest version" && git push
+        $this->symfonyStyle->confirm('Confirm the composer versions were committed');
     }
 
     /**

@@ -33,7 +33,7 @@ final class SendBranchForReviewAndTestsReleaseWorker extends AbstractShopsysRele
      */
     public function work(Version $version): void
     {
-        // @todo
+        $this->symfonyStyle->confirm('Confirm the branch is sent to code-review');
     }
 
     /**

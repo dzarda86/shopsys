@@ -7,16 +7,30 @@ namespace Shopsys\Releaser\ReleaseWorker\ReleaseCandidate;
 use PharIo\Version\Version;
 use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
+use Symplify\MonorepoBuilder\Release\Process\ProcessRunner;
 
 final class TestYourBranchLocallyReleaseWorker extends AbstractShopsysReleaseWorker
 {
+    /**
+     * @var \Symplify\MonorepoBuilder\Release\Process\ProcessRunner
+     */
+    private $processRunner;
+
+    /**
+     * @param \Symplify\MonorepoBuilder\Release\Process\ProcessRunner $processRunner
+     */
+    public function __construct(ProcessRunner $processRunner)
+    {
+        $this->processRunner = $processRunner;
+    }
+
     /**
      * @param \PharIo\Version\Version $version
      * @return string
      */
     public function getDescription(Version $version): string
     {
-        return 'Test your branch locally';
+        return 'Test your branch locally - running compovser-dev';
     }
 
     /**
@@ -33,7 +47,11 @@ final class TestYourBranchLocallyReleaseWorker extends AbstractShopsysReleaseWor
      */
     public function work(Version $version): void
     {
-        // @todo
+        $this->processRunner->run('php phing composer-dev');
+        $this->processRunner->run('php phing standards');
+        $this->processRunner->run('php phing tests');
+
+        $this->symfonyStyle->confirm('Confirm standards and tests are passing');
     }
 
     /**

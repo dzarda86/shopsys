@@ -10,7 +10,6 @@ use Shopsys\Releaser\FileManipulator\DockerComposeFileManipulator;
 use Shopsys\Releaser\FilesProvider\DockerComposeFilesProvider;
 use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
-use Symplify\MonorepoBuilder\Release\Message;
 
 final class UpdateDockerComposeToLatestReleaseWorker extends AbstractShopsysReleaseWorker
 {
@@ -69,7 +68,8 @@ final class UpdateDockerComposeToLatestReleaseWorker extends AbstractShopsysRele
             FileSystem::write($fileInfo->getPathname(), $newContent);
         }
 
-        $this->symfonyStyle->success(Message::SUCCESS);
+        // @todo 'git commit -m "all shopsys Docker images are now used in latest version" && git push
+        $this->symfonyStyle->confirm('Confirm the docker images was committed');
     }
 
     /**

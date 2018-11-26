@@ -9,6 +9,7 @@ use PharIo\Version\Version;
 use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
 use Symfony\Component\Finder\Finder;
+use Symplify\MonorepoBuilder\Release\Message;
 
 final class ResolveDocsTodoReleaseWorker extends AbstractShopsysReleaseWorker
 {
@@ -47,6 +48,8 @@ final class ResolveDocsTodoReleaseWorker extends AbstractShopsysReleaseWorker
 
         $this->symfonyStyle->section(sprintf('Checking %d files for "%s"', count($finder->getIterator()), self::TODO_PLACEHOLDER));
 
+        $isPassing = true;
+
         /** @var \Symfony\Component\Finder\SplFileInfo $fileInfo */
         foreach ($finder as $fileInfo) {
             $todoFound = Strings::matchAll($fileInfo->getContents(), '#' . preg_quote(self::TODO_PLACEHOLDER) . '#');
@@ -54,13 +57,21 @@ final class ResolveDocsTodoReleaseWorker extends AbstractShopsysReleaseWorker
                 continue;
             }
 
+            $isPassing = false;
+
             // @todo add clickable file links later: https://github.com/symfony/symfony/pull/29168/files
             $this->symfonyStyle->note(sprintf(
-                '[Manual] File "%s" has %d todo%s to resolve. Fix them manually.',
+                'File "%s" has %d todo%s to resolve. Fix them manually.',
                 $fileInfo->getPathname(),
                 count($todoFound),
                 $todoFound > 1 ? 's' : ''
             ));
+        }
+
+        if ($isPassing) {
+            $this->symfonyStyle->success(Message::SUCCESS);
+        } else {
+            $this->symfonyStyle->confirm('Confirm all todos in .md files are resolved');
         }
     }
 

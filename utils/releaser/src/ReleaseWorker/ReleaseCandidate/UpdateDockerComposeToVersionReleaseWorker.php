@@ -73,6 +73,8 @@ final class UpdateDockerComposeToVersionReleaseWorker extends AbstractShopsysRel
             FileSystem::write($fileInfo->getPathname(), $newContent);
         }
 
+        // @todo 'git commit -m "all shopsys Docker images are now used in X.X version instead of the latest" && git push
+
         $this->symfonyStyle->success(Message::SUCCESS);
     }
 
