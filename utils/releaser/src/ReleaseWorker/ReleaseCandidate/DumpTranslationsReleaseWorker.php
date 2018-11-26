@@ -11,7 +11,7 @@ use Shopsys\Releaser\Stage;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\MonorepoBuilder\Release\Process\ProcessRunner;
 
-final class DumpTranslatiosReleaseWorker extends AbstractShopsysReleaseWorker
+final class DumpTranslationsReleaseWorker extends AbstractShopsysReleaseWorker
 {
     /**
      * @var \Symplify\MonorepoBuilder\Release\Process\ProcessRunner

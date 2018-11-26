@@ -44,7 +44,8 @@ final class ResolveDocsTodoReleaseWorker extends AbstractShopsysReleaseWorker
         $finder = Finder::create()->files()
             ->name('*.md')
             ->in(getcwd())
-            ->exclude('vendor');
+            ->exclude('vendor')
+            ->exclude('project-base/var');
 
         $this->symfonyStyle->section(sprintf('Checking %d files for "%s"', count($finder->getIterator()), self::TODO_PLACEHOLDER));
 

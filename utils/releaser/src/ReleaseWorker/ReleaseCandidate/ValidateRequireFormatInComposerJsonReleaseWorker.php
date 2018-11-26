@@ -11,6 +11,7 @@ use Shopsys\Releaser\Stage;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider;
 use Symplify\MonorepoBuilder\FileSystem\JsonFileManager;
+use Symplify\MonorepoBuilder\Package\PackageNamesProvider;
 use Symplify\MonorepoBuilder\Release\Message;
 
 final class ValidateRequireFormatInComposerJsonReleaseWorker extends AbstractShopsysReleaseWorker
@@ -31,15 +32,23 @@ final class ValidateRequireFormatInComposerJsonReleaseWorker extends AbstractSho
     private $isSuccessful = false;
 
     /**
+     * @var \Symplify\MonorepoBuilder\Package\PackageNamesProvider
+     */
+    private $packageNamesProvider;
+
+    /**
      * @param \Symplify\MonorepoBuilder\FileSystem\ComposerJsonProvider $composerJsonProvider
      * @param \Symplify\MonorepoBuilder\FileSystem\JsonFileManager $jsonFileManager
+     * @param \Symplify\MonorepoBuilder\Package\PackageNamesProvider $packageNamesProvider
      */
     public function __construct(
         ComposerJsonProvider $composerJsonProvider,
-        JsonFileManager $jsonFileManager
+        JsonFileManager $jsonFileManager,
+        PackageNamesProvider $packageNamesProvider
     ) {
         $this->composerJsonProvider = $composerJsonProvider;
         $this->jsonFileManager = $jsonFileManager;
+        $this->packageNamesProvider = $packageNamesProvider;
     }
 
     /**
@@ -65,17 +74,17 @@ final class ValidateRequireFormatInComposerJsonReleaseWorker extends AbstractSho
      */
     public function work(Version $version): void
     {
-        foreach ($this->composerJsonProvider->getRootAndPackageFileInfos() as $fileInfo) {
-            $jsonContent = $this->jsonFileManager->loadFromFileInfo($fileInfo);
+        foreach ($this->composerJsonProvider->getRootAndPackageFileInfos() as $smartFileInfo) {
+            $jsonContent = $this->jsonFileManager->loadFromFileInfo($smartFileInfo);
 
-            $this->validateVersions($jsonContent, 'require', $fileInfo);
-            $this->validateVersions($jsonContent, 'require-dev', $fileInfo);
+            $this->validateVersions($jsonContent, 'require', $smartFileInfo);
+            $this->validateVersions($jsonContent, 'require-dev', $smartFileInfo);
         }
 
         if ($this->isSuccessful) {
             $this->symfonyStyle->success(Message::SUCCESS);
         } else {
-            $this->symfonyStyle->confirm('Confirm there are the same package versions in each package');
+            $this->symfonyStyle->confirm('Confirm all the requires are in the valid format');
         }
     }
 
@@ -121,8 +130,8 @@ final class ValidateRequireFormatInComposerJsonReleaseWorker extends AbstractSho
             return true;
         }
 
-        // skip shopsys packages mutual dependencies
-        if (Strings::startsWith($packageName, 'shopsys')) {
+        // skip shopsys packages mutual dependencies in monorepo
+        if (in_array($packageName, $this->packageNamesProvider->provide(), true)) {
             return true;
         }
 

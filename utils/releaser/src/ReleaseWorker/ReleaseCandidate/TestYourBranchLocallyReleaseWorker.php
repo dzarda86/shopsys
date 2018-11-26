@@ -30,7 +30,7 @@ final class TestYourBranchLocallyReleaseWorker extends AbstractShopsysReleaseWor
      */
     public function getDescription(Version $version): string
     {
-        return 'Test your branch locally - running compovser-dev';
+        return 'Test your branch locally - running composer-dev, standards and tests"';
     }
 
     /**

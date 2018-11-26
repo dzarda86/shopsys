@@ -74,12 +74,12 @@ final class CheckNewDoctrineReleaseReleaseWorker extends AbstractShopsysReleaseW
         }
 
         $this->symfonyStyle->error(sprintf(
-            'There is new version of "%s". Update the fork "%s" and release new version for it."',
+            'There is a new version of "%s". Create an issue for updating the fork "%s" and releasing a new version for it',
             self::ORIGIN_DOCTINE,
             self::FORKED_DOCTINE
         ));
 
-        $this->symfonyStyle->confirm('Confirm the fork is updated and released');
+        $this->symfonyStyle->confirm('Confirm that you have created an issue for updating the fork');
     }
 
     /**
