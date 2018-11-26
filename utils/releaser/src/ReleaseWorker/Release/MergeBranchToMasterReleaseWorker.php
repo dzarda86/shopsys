@@ -16,7 +16,7 @@ final class MergeBranchToMasterReleaseWorker extends AbstractShopsysReleaseWorke
      */
     public function getDescription(Version $version): string
     {
-        return '[Manual] Merge branch into master';
+        return 'Merge branch into master';
     }
 
     /**

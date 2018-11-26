@@ -16,7 +16,7 @@ final class CheckReleaseBlogPostReleaseWorker extends AbstractShopsysReleaseWork
      */
     public function getDescription(Version $version): string
     {
-        return '[Manual] Prepare "Release highlights" post on https://blog.shopsys.com';
+        return 'Prepare "Release highlights" post on https://blog.shopsys.com';
     }
 
     /**

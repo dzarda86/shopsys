@@ -16,7 +16,7 @@ final class PostInfoToSlackReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function getDescription(Version $version): string
     {
-        return '[Manual] Post info to slack channels';
+        return 'Post info to slack channels';
     }
 
     /**
@@ -33,7 +33,7 @@ final class PostInfoToSlackReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function work(Version $version): void
     {
-        $this->symfonyStyle->note('#news in public Slack, #group_ssfw_news in internal Slack - link the “release highlights here”');
+        $this->symfonyStyle->note('#news in public Slack, #group_ssfw_news in internal Slack - link the "release highlights" here');
         $this->symfonyStyle->confirm('Confirm the Slack is noted');
     }
 

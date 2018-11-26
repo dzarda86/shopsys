@@ -8,32 +8,24 @@ use PharIo\Version\Version;
 use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
 
-final class EnsureReleaseHighlightsPostIsReleasedReleaseWorker extends AbstractShopsysReleaseWorker
+final class CheckHeimdallBuildReleaseWorker extends AbstractShopsysReleaseWorker
 {
-    /**
-     * @param \PharIo\Version\Version $version
-     * @return string
-     */
-    public function getDescription(Version $version): string
-    {
-        return 'Ensure "Release highlights" is released';
-    }
-
     /**
      * Higher first
      * @return int
      */
     public function getPriority(): int
     {
-        return 100;
+        return 260;
     }
 
     /**
      * @param \PharIo\Version\Version $version
+     * @return string
      */
-    public function work(Version $version): void
+    public function getDescription(Version $version): string
     {
-        $this->symfonyStyle->confirm('Confirm the post is released');
+        return 'Check builds on heimdall';
     }
 
     /**
@@ -42,5 +34,13 @@ final class EnsureReleaseHighlightsPostIsReleasedReleaseWorker extends AbstractS
     public function getStage(): string
     {
         return Stage::AFTER_RELEASE;
+    }
+
+    /**
+     * @param \PharIo\Version\Version $version
+     */
+    public function work(Version $version): void
+    {
+        $this->symfonyStyle->confirm('Confirm heimdall build passes');
     }
 }

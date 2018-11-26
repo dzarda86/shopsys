@@ -15,7 +15,7 @@ final class CheckPackagesTravisBuildsReleaseWorker extends AbstractCheckPackages
      */
     public function getPriority(): int
     {
-        return 280;
+        return 240;
     }
 
     /**

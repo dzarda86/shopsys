@@ -17,7 +17,7 @@ final class CreateBranchReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function getDescription(Version $version): string
     {
-        return sprintf('[Manual] Create branch "rc-%s"', Strings::webalize($version->getVersionString()));
+        return sprintf('Create branch "rc-%s"', Strings::webalize($version->getVersionString()));
     }
 
     /**
