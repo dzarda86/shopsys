@@ -56,6 +56,9 @@ There is a list of all the repositories maintained by monorepo, changes in log b
       If you use these methods change their calling appropriately:
         - `CustomerService::edit(User $user, UserData $userData)`  
           ⮕ `User::edit(UserData $userData, CustomerPasswordService $customerPasswordService)`
+        - `CustomerService::createDeliveryAddress(DeliveryAddressData $deliveryAddressData)`  
+          ⮕ `DeliveryAddressFactory::create(DeliveryAddressData $data)`
+    - change return type of `DeliveryAddressFactory::create()` to `?DeliveryAddress` as it now returns `null` when `addressFilled` is `false`
 
 - [#595 automatic product price calculation has been removed along with pricing group coefficients](https://github.com/shopsys/shopsys/pull/595)
     - after running database migrations, all your products will be using manual pricing and will have set prices for all pricing groups in a fashion that will keep the final price as same as before
