@@ -6,9 +6,9 @@ namespace Shopsys\Releaser\ReleaseWorker;
 
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
-use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareReleaseWorkerInterface;
+use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\StageAwareInterface;
 
-abstract class AbstractShopsysReleaseWorker implements ReleaseWorkerInterface, StageAwareReleaseWorkerInterface
+abstract class AbstractShopsysReleaseWorker implements ReleaseWorkerInterface, StageAwareInterface
 {
     /**
      * @var \Symfony\Component\Console\Style\SymfonyStyle
@@ -19,7 +19,7 @@ abstract class AbstractShopsysReleaseWorker implements ReleaseWorkerInterface, S
      * @required
      * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
      */
-    public function autowireSymfonStyle(SymfonyStyle $symfonyStyle): void
+    public function autowireSymfonyStyle(SymfonyStyle $symfonyStyle): void
     {
         $this->symfonyStyle = $symfonyStyle;
     }
