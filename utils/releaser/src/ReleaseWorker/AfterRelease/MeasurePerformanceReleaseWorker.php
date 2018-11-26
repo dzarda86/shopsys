@@ -25,7 +25,7 @@ final class MeasurePerformanceReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function getPriority(): int
     {
-        return 220;
+        return 120;
     }
 
     /**

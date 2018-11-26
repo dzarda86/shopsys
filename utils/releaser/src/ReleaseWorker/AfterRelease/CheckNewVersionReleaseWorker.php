@@ -16,7 +16,6 @@ final class CheckNewVersionReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function getDescription(Version $version): string
     {
-        // @todo what exactly?
         return 'Check new version';
     }
 

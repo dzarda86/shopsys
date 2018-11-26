@@ -53,7 +53,7 @@ final class UpdateDockerComposeToLatestReleaseWorker extends AbstractShopsysRele
      */
     public function getPriority(): int
     {
-        return 280;
+        return 180;
     }
 
     /**

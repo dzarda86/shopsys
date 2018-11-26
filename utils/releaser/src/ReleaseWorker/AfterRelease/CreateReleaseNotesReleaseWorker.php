@@ -25,7 +25,7 @@ final class CreateReleaseNotesReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function getPriority(): int
     {
-        return 240;
+        return 140;
     }
 
     /**

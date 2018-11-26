@@ -25,7 +25,7 @@ final class PostInfoToSlackReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function getPriority(): int
     {
-        return 180;
+        return 80;
     }
 
     /**

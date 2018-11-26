@@ -25,7 +25,7 @@ final class EnsureReleaseHighlightsPostIsReleasedReleaseWorker extends AbstractS
      */
     public function getPriority(): int
     {
-        return 200;
+        return 100;
     }
 
     /**

@@ -60,7 +60,7 @@ final class SetMutualDependenciesToDevMasterReleaseWorker extends AbstractShopsy
      */
     public function getPriority(): int
     {
-        return 260;
+        return 160;
     }
 
     /**
