@@ -10,6 +10,7 @@ use Shopsys\Releaser\FileManipulator\ChangelogFileManipulator;
 use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
 use Symplify\MonorepoBuilder\Release\Process\ProcessRunner;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class UpdateChangelogReleaseWorker extends AbstractShopsysReleaseWorker
 {
@@ -58,16 +59,15 @@ final class UpdateChangelogReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function work(Version $version): void
     {
-        return;
-
         $this->symfonyStyle->note('Dumping new items to CHANGELOG.md, this might take ~10 seconds');
         $this->processRunner->run('vendor/bin/changelog-linker dump-merges --in-packages --in-categories');
 
         // load
         $changelogFilePath = getcwd() . '/CHANGELOG.md';
+        $changelogFileInfo = new SmartFileInfo($changelogFilePath);
 
         // change
-        $newChangelogContent = $this->changelogFileManipulator->processFileToString($changelogFilePath, $version);
+        $newChangelogContent = $this->changelogFileManipulator->processFileToString($changelogFileInfo, $version);
 
         // save
         FileSystem::write($changelogFilePath, $newChangelogContent);

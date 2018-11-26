@@ -10,6 +10,7 @@ use Shopsys\Releaser\FileManipulator\UpgradeFileManipulator;
 use Shopsys\Releaser\ReleaseWorker\AbstractShopsysReleaseWorker;
 use Shopsys\Releaser\Stage;
 use Symplify\MonorepoBuilder\Release\Message;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class UpdateUpgradeReleaseWorker extends AbstractShopsysReleaseWorker
 {
@@ -49,16 +50,15 @@ final class UpdateUpgradeReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function work(Version $version): void
     {
-        return;
-
         // load
-        $changelogFilePath = getcwd() . '/UPGRADE.md';
+        $upgradeFilePath = getcwd() . '/UPGRADE.md';
+        $upgradeFileInfo = new SmartFileInfo($upgradeFilePath);
 
         // change
-        $newChangelogContent = $this->upgradeFileManipulator->processFileToString($changelogFilePath, $version);
+        $newChangelogContent = $this->upgradeFileManipulator->processFileToString($upgradeFileInfo, $version);
 
         // save
-        FileSystem::write($changelogFilePath, $newChangelogContent);
+        FileSystem::write($upgradeFilePath, $newChangelogContent);
 
         $this->symfonyStyle->success(Message::SUCCESS);
     }

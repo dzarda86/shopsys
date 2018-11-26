@@ -40,9 +40,6 @@ final class ResolveDocsTodoReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function work(Version $version): void
     {
-        // @todo for fast development
-        return;
-
         $finder = Finder::create()->files()
             ->name('*.md')
             ->in(getcwd())

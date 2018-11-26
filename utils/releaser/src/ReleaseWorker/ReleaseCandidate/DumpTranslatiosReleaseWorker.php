@@ -51,8 +51,6 @@ final class DumpTranslatiosReleaseWorker extends AbstractShopsysReleaseWorker
      */
     public function work(Version $version): void
     {
-        return;
-
         $this->processRunner->run('php phing dump-translations');
 
         if ($this->hasNewTranslations()) {

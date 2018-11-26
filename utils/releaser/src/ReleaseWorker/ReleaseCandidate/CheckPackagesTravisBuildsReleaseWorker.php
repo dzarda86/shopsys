@@ -70,8 +70,6 @@ final class CheckPackagesTravisBuildsReleaseWorker extends AbstractShopsysReleas
                 ));
             }
         }
-
-        die;
     }
 
     /**

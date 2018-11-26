@@ -62,8 +62,6 @@ final class UpdateDockerComposeToLatestReleaseWorker extends AbstractShopsysRele
      */
     public function work(Version $version): void
     {
-        return;
-
         foreach ($this->dockerComposeFilesProvider->provide() as $fileInfo) {
             $newContent = $this->dockerComposeFileManipulator->processFileToString($fileInfo, $version->getVersionString(), 'latest');
 

@@ -65,8 +65,6 @@ final class CheckNewDoctrineReleaseReleaseWorker extends AbstractShopsysReleaseW
      */
     public function work(Version $version): void
     {
-        return;
-
         $forkedDoctrineVersion = $this->getMostRecentStableVersionForPackage(self::FORKED_DOCTINE);
         $originDoctrineVersion = $this->getMostRecentStableVersionForPackage(self::ORIGIN_DOCTINE);
 
