@@ -51,6 +51,12 @@ There is a list of all the repositories maintained by monorepo, changes in log b
 
 ## [From 7.0.0-beta2 to Unreleased]
 ### [shopsys/framework]
+- [#627 model service layer removal](https://github.com/shopsys/shopsys/pull/627)
+    - we moved business logic into entities, following instructions tells you what method was moved where, so you can upgrade your code and also tests.
+      If you use these methods change their calling appropriately:
+        - `CustomerService::edit(User $user, UserData $userData)`  
+          ⮕ `User::edit(UserData $userData, CustomerPasswordService $customerPasswordService)`
+
 - [#595 automatic product price calculation has been removed along with pricing group coefficients](https://github.com/shopsys/shopsys/pull/595)
     - after running database migrations, all your products will be using manual pricing and will have set prices for all pricing groups in a fashion that will keep the final price as same as before
         - we strongly recommend to review `Version20181114134959` and `Version20181114145250` migrations before executing them on your real data, especially if there were any modifications in your product pricing implementation on the project.
