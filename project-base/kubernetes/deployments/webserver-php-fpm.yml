@@ -41,6 +41,12 @@ spec:
                     volumeMounts:
                     -       name: source-codes
                             mountPath: /tmp/source-codes
+                -   name: modify-docker-image
+                    image:
+                    command: ["sh", "-c", "cd /var/www/html && ./phing db-create build-new db-demo"]
+                    volumeMounts:
+                    -   name: source-codes
+                        mountPath: /var/www/html
             containers:
             -   image:
                 name: php-fpm
