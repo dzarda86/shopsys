@@ -66,10 +66,18 @@ There is a list of all the repositories maintained by monorepo, changes in log b
           ⮕ `UserFactory::create(UserData $userData, BillingAddress $billingAddress, ?DeliveryAddress $deliveryAddress, ?User $userByEmail)`
         - `CustomerService::getAmendedCustomerDataByOrder(User $user, Order $order)`  
           ⮕ `CustomerDataFactoryInterface::createAmendedCustomerDataByOrder(User $user, Order $order)`
+        - `AdministratorGridService::rememberGridLimit(Administrator $administrator, Grid $grid)`  
+          ⮕ `Administrator::rememberGridLimit(Grid $grid, AdministratorGridLimitFactoryInterface $administratorGridLimitFactory)`
+        - `AdministratorGridService::restoreGridLimit(Administrator $administrator, Grid $grid)`  
+          ⮕ `Administrator::restoreGridLimit(Grid $grid)`
     - following classes have been removed:
         - `CustomerService`
+        - `AdministratorGridService`
     - following methods have been removed:
         - `User::setDeliveryAddress`, use `User::editDeliveryAddress` instead
+        - `Administrator::addGridLimit`, use `Administrator::rememberGridLimit` instead
+        - `Administrator::removeGridLimit`
+        - `Administrator::getLimitByGridId`
     - change return type of `DeliveryAddressFactory::create()` to `?DeliveryAddress` as it now returns `null` when `addressFilled` is `false`
 
 - [#595 automatic product price calculation has been removed along with pricing group coefficients](https://github.com/shopsys/shopsys/pull/595)
