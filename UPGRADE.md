@@ -70,6 +70,8 @@ There is a list of all the repositories maintained by monorepo, changes in log b
           ⮕ `Administrator::rememberGridLimit(Grid $grid, AdministratorGridLimitFactoryInterface $administratorGridLimitFactory)`
         - `AdministratorGridService::restoreGridLimit(Administrator $administrator, Grid $grid)`  
           ⮕ `Administrator::restoreGridLimit(Grid $grid)`
+        - `ProductService::getProductSellingPricesIndexedByDomainIdAndPricingGroupId(Product $product, array $pricingGroups)`
+          ⮕ `ProductFacade::getAllProductSellingPricesIndexedByDomainId(Product $product)`
     - following classes have been removed:
         - `CustomerService`
         - `AdministratorGridService`
