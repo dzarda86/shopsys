@@ -1,0 +1,10 @@
+bases:
+- ../../base
+resources:
+- ./namespace.yaml
+namespace: shopsys-production
+
+configMapGenerator:
+- name: gcs-service-account
+  files:
+  - ../../../../../app/config/service-account.json
