@@ -64,7 +64,7 @@ There is a list of all the repositories maintained by monorepo, changes in log b
           ⮕ `User::changeEmail(string $email, self $userByEmail = null)`
         - `CustomerService::create(UserData $userData, BillingAddress $billingAddress, DeliveryAddress $deliveryAddress = null, User $userByEmail = null)`  
           ⮕ `UserFactory::create(UserData $userData, BillingAddress $billingAddress, ?DeliveryAddress $deliveryAddress, ?User $userByEmail)`
-        - `CustomerService::getAmendedCustomerDataByOrder(User $user, Order $order)`
+        - `CustomerService::getAmendedCustomerDataByOrder(User $user, Order $order)`  
           ⮕ `CustomerDataFactoryInterface::createAmendedCustomerDataByOrder(User $user, Order $order)`
     - following classes have been removed:
         - `CustomerService`
