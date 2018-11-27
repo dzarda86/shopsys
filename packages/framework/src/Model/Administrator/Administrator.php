@@ -117,12 +117,29 @@ class Administrator implements UserInterface, Serializable, UniqueLoginInterface
 
     /**
      * @param \Shopsys\FrameworkBundle\Model\Administrator\AdministratorData $administratorData
+     * @param \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface $encoderFactory
+     * @param \Shopsys\FrameworkBundle\Model\Administrator\Administrator|null $administratorByUserName
+     * @throws \Shopsys\FrameworkBundle\Model\Administrator\Exception\DuplicateUserNameException
      */
-    public function edit(AdministratorData $administratorData)
-    {
+    public function edit(
+        AdministratorData $administratorData,
+        EncoderFactoryInterface $encoderFactory,
+        self $administratorByUserName = null
+    ) {
+        if ($administratorByUserName !== null
+            && $administratorByUserName !== $this
+            && $administratorByUserName->getUsername() === $administratorData->username
+        ) {
+            throw new \Shopsys\FrameworkBundle\Model\Administrator\Exception\DuplicateUserNameException($this->username);
+        }
+
         $this->email = $administratorData->email;
         $this->realName = $administratorData->realName;
         $this->username = $administratorData->username;
+
+        if ($administratorData->password !== null) {
+            $this->setPassword($administratorData->password, $encoderFactory);
+        }
     }
 
     /**

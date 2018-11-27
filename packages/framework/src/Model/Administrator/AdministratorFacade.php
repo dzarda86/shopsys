@@ -75,21 +75,18 @@ class AdministratorFacade
     /**
      * @param int $administratorId
      * @param \Shopsys\FrameworkBundle\Model\Administrator\AdministratorData $administratorData
-     * @return \Shopsys\FrameworkBundle\Model\Administrator\Administrator
      */
     public function edit($administratorId, AdministratorData $administratorData)
     {
         $administrator = $this->administratorRepository->getById($administratorId);
         $administratorByUserName = $this->administratorRepository->findByUserName($administratorData->username);
-        $administratorEdited = $this->administratorService->edit(
+        $administrator->edit(
             $administratorData,
-            $administrator,
+            $this->encoderFactory,
             $administratorByUserName
         );
 
         $this->em->flush();
-
-        return $administratorEdited;
     }
 
     /**

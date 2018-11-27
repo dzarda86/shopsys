@@ -72,6 +72,8 @@ There is a list of all the repositories maintained by monorepo, changes in log b
           ⮕ `Administrator::restoreGridLimit(Grid $grid)`
         - `AdministratorService::setPassword(Administrator $administrator, $password)`  
           ⮕ `Administrator::setPassword(string $password, EncoderFactoryInterface $encoderFactory)`
+        - `AdministratorService::edit(AdministratorData $administratorData, Administrator $administrator, Administrator $administratorByUserName = null)`  
+          ⮕ `Administrator::edit(AdministratorData $administratorData, EncoderFactoryInterface $encoderFactory, self $administratorByUserName = null)`
         - `ProductService::getProductSellingPricesIndexedByDomainIdAndPricingGroupId(Product $product, array $pricingGroups)`
           ⮕ `ProductFacade::getAllProductSellingPricesIndexedByDomainId(Product $product)`
     - following classes have been removed:
