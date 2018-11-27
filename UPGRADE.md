@@ -76,6 +76,8 @@ There is a list of all the repositories maintained by monorepo, changes in log b
           ⮕ `Administrator::edit(AdministratorData $administratorData, EncoderFactoryInterface $encoderFactory, self $administratorByUserName = null)`
         - `AdministratorService::delete(Administrator $administrator, $adminCountExcludingSuperadmin)`  
           ⮕ `Administrator::checkCanBeDeleted(TokenStorageInterface $tokenStorage, int $adminCountExcludingSuperadmin)`
+        - `OrderService::calculateTotalPrice(Order $order)`  
+          ⮕ `Order::calculateTotalPrice(OrderPriceCalculation $orderPriceCalculation)`
         - `ProductService::getProductSellingPricesIndexedByDomainIdAndPricingGroupId(Product $product, array $pricingGroups)`
           ⮕ `ProductFacade::getAllProductSellingPricesIndexedByDomainId(Product $product)`
     - following classes have been removed:
