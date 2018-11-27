@@ -74,11 +74,14 @@ There is a list of all the repositories maintained by monorepo, changes in log b
           ⮕ `Administrator::setPassword(string $password, EncoderFactoryInterface $encoderFactory)`
         - `AdministratorService::edit(AdministratorData $administratorData, Administrator $administrator, Administrator $administratorByUserName = null)`  
           ⮕ `Administrator::edit(AdministratorData $administratorData, EncoderFactoryInterface $encoderFactory, self $administratorByUserName = null)`
+        - `AdministratorService::delete(Administrator $administrator, $adminCountExcludingSuperadmin)`  
+          ⮕ `Administrator::checkCanBeDeleted(TokenStorageInterface $tokenStorage, int $adminCountExcludingSuperadmin)`
         - `ProductService::getProductSellingPricesIndexedByDomainIdAndPricingGroupId(Product $product, array $pricingGroups)`
           ⮕ `ProductFacade::getAllProductSellingPricesIndexedByDomainId(Product $product)`
     - following classes have been removed:
         - `CustomerService`
         - `AdministratorGridService`
+        - `AdministratorService`
     - following methods have been removed:
         - `User::setDeliveryAddress`, use `User::editDeliveryAddress` instead
         - `Administrator::addGridLimit`, use `Administrator::rememberGridLimit` instead
