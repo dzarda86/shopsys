@@ -36,6 +36,12 @@
 * [Adding a New Advert Position](./cookbook/adding-a-new-advert-position.md)
 * [Modifying a Template in Administration](./cookbook/modifying-a-template-in-administration.md)
 
+## Kubernetes
+* [Introduction to Kubernetes](/docs/kubernetes/introduction-to-kubernetes.md)
+* [Continuous Integration Using Kubernetes](/docs/kubernetes/continuous-integration-using-kubernetes.md)
+* [Logging on Continuous Integration server running Kubernetes](/docs/kubernetes/logging-on-continuous-integration-server-running-kubernetes.md)
+* [Production on Google Cloud Platform using Kubernetes, Terraform and Kustomize](/docs/kubernetes/kubernetes-production-google-cloud.md)
+
 ## Microservices
 One of the explored ideas of Shopsys Framework is the idea of a product, that some of its parts are designed as the microservices.
 Microservice acts as a fully independent unit and all of its parts are located in a separate Docker container.
