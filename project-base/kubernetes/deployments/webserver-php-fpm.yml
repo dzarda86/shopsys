@@ -36,13 +36,13 @@ spec:
                             path: default.conf
             initContainers:
                 -   name: copy-source-codes-to-volume
-                    image: $PHP_FPM_IMAGE
+                    image:
                     command: ["sh", "-c", "cp -r /var/www/html/. /tmp/source-codes"]
                     volumeMounts:
                     -       name: source-codes
                             mountPath: /tmp/source-codes
             containers:
-            -   image: $PHP_FPM_IMAGE
+            -   image:
                 name: php-fpm
                 securityContext:
                         runAsUser: 82
