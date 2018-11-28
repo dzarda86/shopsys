@@ -95,6 +95,7 @@ There is a list of all the repositories maintained by monorepo, changes in log b
         - `Administrator::addGridLimit`, use `Administrator::rememberGridLimit` instead
         - `Administrator::removeGridLimit`
         - `Administrator::getLimitByGridId`
+        - `ProductService::changeVat`
     - change return type of `DeliveryAddressFactory::create()` to `?DeliveryAddress` as it now returns `null` when `addressFilled` is `false`
 
 - [#595 automatic product price calculation has been removed along with pricing group coefficients](https://github.com/shopsys/shopsys/pull/595)
