@@ -723,9 +723,24 @@ class Product extends AbstractTranslatableEntity
         $this->recalculatePrice = false;
     }
 
+    /**
+     * @param bool $recalculateVisibility
+     */
+    protected function setRecalculateVisibility($recalculateVisibility)
+    {
+        $this->recalculateVisibility = $recalculateVisibility;
+    }
+
     public function markForVisibilityRecalculation()
     {
-        $this->recalculateVisibility = true;
+        $this->setRecalculateVisibility(true);
+        if ($this->isMainVariant()) {
+            foreach ($this->getVariants() as $variant) {
+                $variant->setRecalculateVisibility(true);
+            }
+        } elseif ($this->isVariant()) {
+            $this->getMainVariant()->setRecalculateVisibility(true);
+        }
     }
 
     public function markForAvailabilityRecalculation()
@@ -924,6 +939,14 @@ class Product extends AbstractTranslatableEntity
     public function getSeoMetaDescription(int $domainId)
     {
         return $this->getProductDomain($domainId)->getSeoMetaDescription();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMarkedForVisibilityRecalculation()
+    {
+        return $this->recalculateVisibility;
     }
 
     /**

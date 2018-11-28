@@ -82,6 +82,8 @@ There is a list of all the repositories maintained by monorepo, changes in log b
           ⮕ `ProductFacade::getAllProductSellingPricesIndexedByDomainId(Product $product)`
         - `ProductService::sortProductsByProductIds(array $products, array $orderedProductIds)`
           ⮕ `ProductRepository::getSortedProductsByIds($domainId, PricingGroup $pricingGroup, array $sortedProductIds)`
+        - `ProductService::markProductForVisibilityRecalculation(Product $product)`
+          ⮕ `Product::markForVisibilityRecalculation()`
     - following classes have been removed:
         - `CustomerService`
         - `AdministratorGridService`
