@@ -88,10 +88,13 @@ There is a list of all the repositories maintained by monorepo, changes in log b
           ⮕ `Product::edit(ProductCategoryDomainFactoryInterface $productCategoryDomainFactory, ProductData $productData, ProductPriceRecalculationScheduler $productPriceRecalculationScheduler)`
         - `ProductService::delete(Product $product)`
           ⮕ `Product::getProductDeleteResult()`
+        - `ProductService::recalculateInputPriceForNewVatPercent(Product $product, $productManualInputPrices, $newVatPercent)`
+          ⮕ `ProductManualInputPrice::recalculateInputPriceForNewVatPercent($inputPriceType, BasePriceCalculation $basePriceCalculation, InputPriceCalculation $inputPriceCalculation, $newVatPercent)`
     - following classes have been removed:
         - `CustomerService`
         - `AdministratorGridService`
         - `AdministratorService`
+        - `ProductService`
     - following methods have been removed:
         - `User::setDeliveryAddress`, use `User::editDeliveryAddress` instead
         - `Administrator::addGridLimit`, use `Administrator::rememberGridLimit` instead
