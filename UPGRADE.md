@@ -86,6 +86,8 @@ There is a list of all the repositories maintained by monorepo, changes in log b
           ⮕ `Product::markForVisibilityRecalculation()`
         - `ProductService::edit(Product $product, ProductData $productData)`
           ⮕ `Product::edit(ProductCategoryDomainFactoryInterface $productCategoryDomainFactory, ProductData $productData, ProductPriceRecalculationScheduler $productPriceRecalculationScheduler)`
+        - `ProductService::delete(Product $product)`
+          ⮕ `Product::getProductDeleteResult()`
     - following classes have been removed:
         - `CustomerService`
         - `AdministratorGridService`
