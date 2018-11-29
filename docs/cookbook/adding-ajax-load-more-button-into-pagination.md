@@ -1,6 +1,6 @@
 # Adding Ajax Load More Button into Pagination
 
-This tutorial will guide us via steps needed for implementing page loader that will make calls to `Brand` controller. 
+In this cookbook, we will add a paginated brand list including ajax "load more" button to a product list page. After finishing the guide, you will know how to use multiple paginations on one page.
 
 ## Implementation of Brand Pagination
 
@@ -137,4 +137,4 @@ We will add twig code into `main_content` block.
 
 ## Conclusion
 
-Customer can see 2 paginated lists with buttons for loading items from next pages on each `Product` list page. Since there are unique page query parameters, paginated lists can have displayed different page indexes after broser is loaded with these page query parameters.
+Customer can see 2 paginated lists with buttons for loading items from next pages on each `Product` list page. Since there are unique page query parameters, paginated lists can have displayed different page indexes after browser is loaded with these page query parameters.
