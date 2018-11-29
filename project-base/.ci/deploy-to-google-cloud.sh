@@ -3,10 +3,6 @@
 # Login to Docker Hub for pushing images into register
 echo ${DOCKER_PASSWORD} | docker login --username ${DOCKER_USERNAME} --password-stdin
 
-# Create real parameters files
-cp app/config/domains_urls.yml.dist app/config/domains_urls.yml
-cp app/config/parameters.yml.dist app/config/parameters.yml
-
 # Create unique docker image tag with commit hash
 DOCKER_IMAGE_TAG=production-commit-${GIT_COMMIT}
 
@@ -21,6 +17,10 @@ docker image pull ${DOCKER_USERNAME}/php-fpm:${DOCKER_IMAGE_TAG} || (
     docker image push ${DOCKER_USERNAME}/php-fpm:${DOCKER_IMAGE_TAG}
 )
 
+# Create real parameters files to be modified and applied to the cluster as configmaps
+cp app/config/domains_urls.yml.dist app/config/domains_urls.yml
+cp app/config/parameters.yml.dist app/config/parameters.yml
+
 # Replace docker images for php-fpm of application and microservices
 yq write --inplace kubernetes/deployments/webserver-php-fpm.yml spec.template.spec.containers[0].image ${DOCKER_USERNAME}/php-fpm:${DOCKER_IMAGE_TAG}
 yq write --inplace kubernetes/deployments/webserver-php-fpm.yml spec.template.spec.initContainers[0].image ${DOCKER_USERNAME}/php-fpm:${DOCKER_IMAGE_TAG}
@@ -33,6 +33,10 @@ yq write --inplace kubernetes/ingress.yml spec.rules[1].host ${SECOND_DOMAIN_HOS
 # Set domain into webserver hostnames
 yq write --inplace kubernetes/deployments/webserver-php-fpm.yml spec.template.spec.hostAliases[0].hostnames[+] ${FIRST_DOMAIN_HOSTNAME}
 yq write --inplace kubernetes/deployments/webserver-php-fpm.yml spec.template.spec.hostAliases[0].hostnames[+] ${SECOND_DOMAIN_HOSTNAME}
+
+# Set domain urls
+yq write --inplace project-base/app/config/domains_urls.yml domains_urls[0].url http://${FIRST_DOMAIN_HOSTNAME}
+yq write --inplace project-base/app/config/domains_urls.yml domains_urls[1].url http://${SECOND_DOMAIN_HOSTNAME}
 
 # Add a mask for trusted proxies so that load balanced traffic is trusted and headers from outside of the network are not lost
 yq write --inplace app/config/parameters.yml parameters.trusted_proxies[+] 10.0.0.0/8
