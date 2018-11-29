@@ -54,7 +54,14 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
     --role roles/owner
 
 # Initialize terraform, installs all the providers
-TF_VAR_GOOGLE_CLOUD_ACCOUNT_ID=${SERVICE_ACCOUNT_LOGIN} TF_VAR_GOOGLE_CLOUD_PROJECT_ID=${PROJECT_ID} terraform init
+terraform init
+
+# Set .kube/config from tfstate if the output variable is defined
+# If the cluster resource does not exist yet, the .kube/config will be created during its provisioning
+KUBE_CONFIG=$(terraform output production-k8s-cluster-kube-config 2> /dev/null || true)
+if [ -n "$KUBE_CONFIG" ]; then
+  echo "$KUBE_CONFIG" > ~/.kube/config
+fi
 
 # Apply changes in infrastructure
 TF_VAR_GOOGLE_CLOUD_ACCOUNT_ID=${SERVICE_ACCOUNT_LOGIN} TF_VAR_GOOGLE_CLOUD_PROJECT_ID=${PROJECT_ID} terraform apply --auto-approve

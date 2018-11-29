@@ -35,3 +35,10 @@ resource "google_container_cluster" "production-k8s-cluster" {
     interpreter = ["/bin/bash", "-c"]
   }
 }
+
+output "production-k8s-cluster-kube-config" {
+  depends_on = ["google_container_cluster.production-k8s-cluster"]
+
+  value      = "${file("~/.kube/config")}"
+  sensitive  = true
+}
