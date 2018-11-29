@@ -34,6 +34,9 @@ yq write --inplace kubernetes/ingress.yml spec.rules[1].host ${SECOND_DOMAIN_HOS
 yq write --inplace kubernetes/deployments/webserver-php-fpm.yml spec.template.spec.hostAliases[0].hostnames[+] ${FIRST_DOMAIN_HOSTNAME}
 yq write --inplace kubernetes/deployments/webserver-php-fpm.yml spec.template.spec.hostAliases[0].hostnames[+] ${SECOND_DOMAIN_HOSTNAME}
 
+# Add a mask for trusted proxies so that load balanced traffic is trusted and headers from outside of the network are not lost
+yq write --inplace app/config/parameters.yml parameters.trusted_proxies[+] 10.0.0.0/8
+
 cd /tmp/infrastructure/google-cloud
 
 # Authenticate yourself with service.account.json file.
